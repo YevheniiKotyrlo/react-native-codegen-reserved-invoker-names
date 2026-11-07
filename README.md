@@ -1,16 +1,23 @@
 # react-native-codegen-reserved-invoker-names
 
-![Build](https://github.com/YevheniiKotyrlo/react-native-codegen-reserved-invoker-names/workflows/Pre%20Merge%20Checks/badge.svg)
+`ReproducerApp/specs/NativeSample.ts` is a TurboModule spec with one method. `repro.sh` generates its C++ spec with
+react-native's codegen and compiles the generated `SampleJSI.h` with clang's `-Wreserved-identifier` under `-Werror`.
 
-This is your new React Native Reproducer project.
+```sh
+docker run --rm -v "$PWD:/repro:ro" node:24 bash -c \
+  'apt-get update -qq && apt-get install -y -qq clang libboost-dev libdouble-conversion-dev libgoogle-glog-dev > /dev/null && bash /repro/repro.sh'
+```
+
+`bash /repro/repro.sh 0.88.1` runs it on a release instead of `react-native@nightly`. It exits 1 while the generated
+invoker's name is reserved, 0 once it is not, and 2 when a step fails.
 
 # Reproducer TODO list
 
 - [x] 1. Create a new reproducer project.
-- [ ] 2. Git clone your repository locally.
-- [ ] 3. Edit the project to reproduce the failure you're seeing.
-- [ ] 4. Push your changes, so that Github Actions can run the CI.
-- [ ] 5. Make sure the repository is public and share the link with the issue you reported.
+- [x] 2. Git clone your repository locally.
+- [x] 3. Edit the project to reproduce the failure you're seeing.
+- [x] 4. Push your changes, so that Github Actions can run the CI.
+- [x] 5. Make sure the repository is public and share the link with the issue you reported.
 
 # How to use this Reproducer
 
